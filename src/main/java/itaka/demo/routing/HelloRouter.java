@@ -22,8 +22,8 @@ public class HelloRouter {
     public RouterFunction<ServerResponse> route() {
         return RouterFunctions
                 .route(GET(PATH), this::hello)
-                .andRoute(GET(PATH + "/{name}"), this::helloName)
-                .andRoute(GET(PATH + "/hoge"), this::helloHoge);
+                .andRoute(GET(PATH + "/hoge"), this::helloHoge)
+                .andRoute(GET(PATH + "/{name}"), this::helloName);
     }
 
     private Mono<ServerResponse> hello(ServerRequest req) {
