@@ -9,6 +9,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.path;
+import static org.springframework.web.reactive.function.server.RouterFunctions.*;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 /**
@@ -17,13 +19,11 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 @Component
 public class HelloRouter {
 
-    private static final String PATH = "/hello";
-
-    public RouterFunction<ServerResponse> route() {
-        return RouterFunctions
-                .route(GET(PATH), this::hello)
-                .andRoute(GET(PATH + "/hoge"), this::helloHoge)
-                .andRoute(GET(PATH + "/{name}"), this::helloName);
+    public RouterFunction<ServerResponse> routes() {
+        return nest(path("/hello"),
+                route(GET("/"), this::hello)
+                        .andRoute(GET("/hoge"), this::helloHoge)
+                        .andRoute(GET("/{name}"), this::helloName));
     }
 
     private Mono<ServerResponse> hello(ServerRequest req) {

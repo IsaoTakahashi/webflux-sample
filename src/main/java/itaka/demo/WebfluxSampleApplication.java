@@ -17,7 +17,7 @@ public class WebfluxSampleApplication {
 
     @Bean
     public RouterFunction<ServerResponse> routes(HelloRouter helloRouter, StreamRouter streamRouter) {
-        return helloRouter.route()
-                .and(streamRouter.route());
+        return helloRouter.routes()
+                .and(streamRouter.routes());
     }
 }
